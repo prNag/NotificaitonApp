@@ -17,6 +17,8 @@ namespace NotifyApp
             InitializeComponent();
         }
 
+        Timer timer = new Timer();
+       
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             Int32 tempInt = 0;
@@ -28,18 +30,24 @@ namespace NotifyApp
                     {
                         MessageBox.Show("Notification Time Updated");
                         notfiyTime = tempInt;
+                        timer.Interval = tempInt;
+                        timer.Tick += new EventHandler(openFuntion);
+                        timer.Start();
                     }
                     else {
                         MessageBox.Show("Enter Valid Time");
+                        timer.Stop();
                     }
                 }
                 else
                 {
                     MessageBox.Show("Invalid number");
+                    timer.Stop();
                 }
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message.ToString());
+                timer.Stop();
             }
          
 
@@ -48,6 +56,12 @@ namespace NotifyApp
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Current Time interval is set to " + (notfiyTime / 1000) + " s");
+        }
+        void openFuntion(object sender, EventArgs e)
+        {
+            NotificationForm tForm = new NotificationForm();
+            tForm.Show();
+            timer.Stop();
         }
     }
 }

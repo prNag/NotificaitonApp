@@ -44,5 +44,10 @@ namespace NotifyApp
          
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Current Time interval is set to " + (notfiyTime / 1000) + " s");
+        }
     }
 }
